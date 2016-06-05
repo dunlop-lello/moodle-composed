@@ -4,28 +4,42 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c364f77442f6f0baeb6ca9dc768f175d",
-    "content-hash": "5f4227eb4ba08766369ea222f5d358fc",
+    "hash": "6eba69b33fd0759ecb5c39c015722e23",
+    "content-hash": "73e00f02ad45e41a960cd5ca834013b3",
     "packages": [
         {
-            "name": "kaltura/moodle",
-            "version": "dev-MOODLE_30_STABLE",
+            "name": "kaltura/moodle_plugin",
+            "version": "dev-MOODLE_30_MDL-54834",
             "source": {
                 "type": "git",
-                "url": "/srv/kaltura/moodle/.git",
-                "reference": "e9294ae96d83e4997cb135aa61e64d89026c6ef5"
+                "url": "https://github.com/dunlop-lello/kaltura_moodle_plugin.git",
+                "reference": "b9ff92e6d5fa735176706806c198f6d5ceaddbab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dunlop-lello/kaltura_moodle_plugin/zipball/b9ff92e6d5fa735176706806c198f6d5ceaddbab",
+                "reference": "b9ff92e6d5fa735176706806c198f6d5ceaddbab",
+                "shasum": ""
             },
             "type": "library",
-            "description": "Kaltura Video plugin for Moodle",
-            "time": "2016-06-05 13:04:39"
+            "support": {
+                "source": "https://github.com/dunlop-lello/kaltura_moodle_plugin/tree/MOODLE_30_MDL-54838"
+            },
+            "time": "2016-06-05 20:07:41"
         },
         {
             "name": "moodle/moodle",
-            "version": "dev-MOODLE_31_STABLE",
+            "version": "dev-MOODLE_31_MDL-54834",
             "source": {
                 "type": "git",
-                "url": "/srv/moodle31/docroot/.git",
-                "reference": "f755e73d986969ee183f9f8741483ea68ca19073"
+                "url": "https://github.com/dunlop-lello/moodle.git",
+                "reference": "4a2a90d9759aa4c1b56f80f09fa6f85c71b61d66"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dunlop-lello/moodle/zipball/4a2a90d9759aa4c1b56f80f09fa6f85c71b61d66",
+                "reference": "4a2a90d9759aa4c1b56f80f09fa6f85c71b61d66",
+                "shasum": ""
             },
             "require-dev": {
                 "moodlehq/behat-extension": "3.31.2",
@@ -33,7 +47,10 @@
                 "phpunit/phpunit": "4.8.*"
             },
             "type": "library",
-            "time": "2016-06-05 12:09:23"
+            "support": {
+                "source": "https://github.com/dunlop-lello/moodle/tree/MOODLE_31_MDL-54834"
+            },
+            "time": "2016-06-05 17:58:43"
         }
     ],
     "packages-dev": [],
@@ -41,7 +58,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "moodle/moodle": 20,
-        "kaltura/moodle": 20
+        "kaltura/moodle_plugin": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
