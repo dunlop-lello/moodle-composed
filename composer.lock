@@ -1,0 +1,50 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "c364f77442f6f0baeb6ca9dc768f175d",
+    "content-hash": "5f4227eb4ba08766369ea222f5d358fc",
+    "packages": [
+        {
+            "name": "kaltura/moodle",
+            "version": "dev-MOODLE_30_STABLE",
+            "source": {
+                "type": "git",
+                "url": "/srv/kaltura/moodle/.git",
+                "reference": "e9294ae96d83e4997cb135aa61e64d89026c6ef5"
+            },
+            "type": "library",
+            "description": "Kaltura Video plugin for Moodle",
+            "time": "2016-06-05 13:04:39"
+        },
+        {
+            "name": "moodle/moodle",
+            "version": "dev-MOODLE_31_STABLE",
+            "source": {
+                "type": "git",
+                "url": "/srv/moodle31/docroot/.git",
+                "reference": "f755e73d986969ee183f9f8741483ea68ca19073"
+            },
+            "require-dev": {
+                "moodlehq/behat-extension": "3.31.2",
+                "phpunit/dbunit": "1.4.*",
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "time": "2016-06-05 12:09:23"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "moodle/moodle": 20,
+        "kaltura/moodle": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

@@ -1,0 +1,29 @@
+{
+    "name": "dunloplello/composed-moodle",
+    "type": "package",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "file:///srv/moodle31/docroot/.git"
+        },
+        {
+            "type": "vcs",
+            "url": "file:///srv/kaltura/moodle/.git"
+        }
+    ],
+    "require": {
+        "moodle/moodle": "MOODLE_31_STABLE-dev",
+        "kaltura/moodle": "MOODLE_30_STABLE-dev"
+    },
+    "scripts": {
+        "pre-install-cmd": "DunlopLello\\ComposedMoodle::preInstall",
+        "pre-update-cmd": "DunlopLello\\ComposedMoodle::preUpdate",
+        "post-install-cmd": "DunlopLello\\ComposedMoodle::postInstall",
+        "post-update-cmd": "DunlopLello\\ComposedMoodle::postUpdate"
+    },
+    "autoload": {
+        "psr-4": {
+            "DunlopLello\\": "src/"
+        }
+    }
+}
