@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6eba69b33fd0759ecb5c39c015722e23",
-    "content-hash": "73e00f02ad45e41a960cd5ca834013b3",
+    "hash": "492e8ff2c9454921516f9b33e3a6088e",
+    "content-hash": "6302b2bb21ebe054804e9951faf18c48",
     "packages": [
         {
             "name": "kaltura/moodle_plugin",
@@ -13,19 +13,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dunlop-lello/kaltura_moodle_plugin.git",
-                "reference": "b9ff92e6d5fa735176706806c198f6d5ceaddbab"
+                "reference": "890e48d7ddb5562296458e34097542a17dc91e5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dunlop-lello/kaltura_moodle_plugin/zipball/b9ff92e6d5fa735176706806c198f6d5ceaddbab",
-                "reference": "b9ff92e6d5fa735176706806c198f6d5ceaddbab",
+                "url": "https://api.github.com/repos/dunlop-lello/kaltura_moodle_plugin/zipball/890e48d7ddb5562296458e34097542a17dc91e5e",
+                "reference": "890e48d7ddb5562296458e34097542a17dc91e5e",
                 "shasum": ""
             },
             "type": "library",
             "support": {
-                "source": "https://github.com/dunlop-lello/kaltura_moodle_plugin/tree/MOODLE_30_MDL-54838"
+                "source": "https://github.com/dunlop-lello/kaltura_moodle_plugin/tree/MOODLE_30_MDL-54834"
             },
-            "time": "2016-06-05 20:07:41"
+            "time": "2016-06-05 22:18:12"
         },
         {
             "name": "moodle/moodle",
@@ -33,12 +33,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dunlop-lello/moodle.git",
-                "reference": "4a2a90d9759aa4c1b56f80f09fa6f85c71b61d66"
+                "reference": "efe99533a2984a0acf849a3edf878a03fec29413"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dunlop-lello/moodle/zipball/4a2a90d9759aa4c1b56f80f09fa6f85c71b61d66",
-                "reference": "4a2a90d9759aa4c1b56f80f09fa6f85c71b61d66",
+                "url": "https://api.github.com/repos/dunlop-lello/moodle/zipball/efe99533a2984a0acf849a3edf878a03fec29413",
+                "reference": "efe99533a2984a0acf849a3edf878a03fec29413",
                 "shasum": ""
             },
             "require-dev": {
@@ -50,7 +50,7 @@
             "support": {
                 "source": "https://github.com/dunlop-lello/moodle/tree/MOODLE_31_MDL-54834"
             },
-            "time": "2016-06-05 17:58:43"
+            "time": "2016-06-05 21:06:00"
         }
     ],
     "packages-dev": [],

@@ -4,11 +4,11 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@github.com:dunlop-lello/moodle.git"
+            "url": "https://github.com/dunlop-lello/moodle.git"
         },
         {
             "type": "vcs",
-            "url": "git@github.com:dunlop-lello/kaltura_moodle_plugin.git"
+            "url": "https://github.com/dunlop-lello/kaltura_moodle_plugin.git"
         }
     ],
     "require": {
