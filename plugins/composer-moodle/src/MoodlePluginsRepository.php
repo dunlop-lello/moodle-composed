@@ -10,16 +10,30 @@ use Composer\Package\Loader\InvalidPackageException;
 use Composer\Package\Loader\ValidatingArrayLoader;
 use Composer\Package\PackageInterface;
 use Composer\Repository\ArrayRepository;
+use Composer\Repository\RepositoryInterface;
+use Composer\Repository\ConfigurableRepositoryInterface;
 use Composer\Script\Event;
 
-class MoodlePluginsRepository extends ArrayRepository
+class MoodlePluginsRepository extends ArrayRepository implements ConfigurableRepositoryInterface
 {
-    protected $io;
+    protected $config;
     protected $composer;
+    protected $io;
     protected $plugins;
 
-    public function __construct(Composer $composer, IOInterface $io)
+    public function __construct($config, Composer $composer, IOInterface $io)
     {
+        $this->config = array_merge(array(
+            "docroot" => "docroot",
+            "plugins" => array(
+                "moodle" => "https://download.moodle.org/api/1.3/pluglist.php"
+            ),
+            "source" => array(
+                "type" => "vcs",
+                "url" => "https://github.com/moodle/moodle.git",
+                "reference" => "master"
+            ),
+        ), is_null($config)?array():$config);
         $this->composer = $composer;
         $this->io = $io;
         parent::__construct();
@@ -28,26 +42,32 @@ class MoodlePluginsRepository extends ArrayRepository
     protected function initialize()
     {
         parent::initialize();
-        $url = "https://download.moodle.org/api/1.3/pluglist.php";
-        $plugin_data = SELF::loadPluginList($this->io, $this->composer->getConfig(), $url);
+        $plugin_data = SELF::loadPluginList($this->io, $this->composer->getConfig());
         $loader = new ValidatingArrayLoader(new ArrayLoader(null, true), false);
-        foreach ($plugin_data->plugins as $plugin)
+        foreach ($plugin_data as $prefix => $plugins)
         {
-            $this->io->overwrite("Importing ".$plugin->component, false);
-            foreach ($plugin->versions as $version)
+            foreach ($plugins as $plugin)
             {
-                foreach ($version->supportedmoodles as $supportedmoodle)
+                if (!isset($plugin->component))
                 {
-                    $package_data = array();
-                    $package_data['name'] = "moodle/moodle_".$plugin->component;
-                    $package_data['version'] = $supportedmoodle->release.".".$version->version;
-                    try
+                    $plugin->component = 'other_'.str_replace(' ', '_', strtolower($plugin->name));
+                }
+                $this->io->overwrite("Importing ".$plugin->component, false);
+                foreach ($plugin->versions as $version)
+                {
+                    foreach ($version->supportedmoodles as $supportedmoodle)
                     {
-                        $this->packages[] = $loader->load($package_data);
-                    }
-                    catch (InvalidPackageException $ex)
-                    {
-                        $this->io->write($ex->getMessage(), true, IOInterface::VERBOSE);
+                        $package_data = array();
+                        $package_data['name'] = $prefix."/moodle-".$plugin->component;
+                        $package_data['version'] = $supportedmoodle->release.".".$version->version;
+                        try
+                        {
+                            $this->packages[] = $loader->load($package_data);
+                        }
+                        catch (InvalidPackageException $ex)
+                        {
+                            $this->io->write($ex->getMessage(), true, IOInterface::VERBOSE);
+                        }
                     }
                 }
             }
@@ -55,35 +75,34 @@ class MoodlePluginsRepository extends ArrayRepository
         $this->io->write("");
     }
 
-    protected static function cacheFileName(Config $config, $url)
+    public function getRepoConfig()
     {
-        return "moodle-plugins.json";
+        return $this->config;
     }
 
-    protected static function loadPluginList(IOInterface $io, Config $config, $url)
+    protected static function loadPluginList(IOInterface $io, Config $config)
     {
-        $cache = SELF::cacheFileName($config, $url);
+        $cache = Plugin::cacheFileName();
         if (!file_exists($cache))
         {
-            SELF::doUpdatePluginList($io, $config, $url);
+            SELF::doUpdatePluginList($io, $config);
         }
         return json_decode(file_get_contents($cache));
     }
 
-    protected static function doUpdatePluginList(IOInterface $io, Config $config, $url)
+    protected static function doUpdatePluginList(IOInterface $io, RepositoryInterface $config)
     {
         $io->write("Updating plugin list '".$url."'... ", false);
         $plugin_json = file_get_contents($url);
         if (!empty($plugin_json) && json_decode($plugin_json))
         {
-            file_put_contents(SELF::cacheFileName($config, $url), $plugin_json);
+            file_put_contents(SELF::cacheFileName(), $plugin_json);
         }
         $io->write("done");
     }
 
     public static function updatePluginList(Event $event)
     {
-        $url = "https://download.moodle.org/api/1.3/pluglist.php";
-        SELF::doUpdatePluginList($event->getIO(), $event->getComposer()->getConfig(), $url);
+        SELF::doUpdatePluginList($event->getIO(), $event->getComposer()->getRepositories());
     }
 }
