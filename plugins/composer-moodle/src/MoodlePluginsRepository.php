@@ -39,8 +39,8 @@ class MoodlePluginsRepository extends ArrayRepository
                 foreach ($version->supportedmoodles as $supportedmoodle)
                 {
                     $package_data = array();
-                    $package_data['name'] = "moodle/moodle_".$supportedmoodle->release."_".$plugin->component;
-                    $package_data['version'] = $version->version;
+                    $package_data['name'] = "moodle/moodle_".$plugin->component;
+                    $package_data['version'] = $supportedmoodle->release.".".$version->version;
                     try
                     {
                         $this->packages[] = $loader->load($package_data);
