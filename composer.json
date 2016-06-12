@@ -3,27 +3,42 @@
     "type": "package",
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/dunlop-lello/moodle.git"
+            "type": "path",
+            "url": "./plugins/composer-moodle"
         },
         {
-            "type": "vcs",
-            "url": "https://github.com/dunlop-lello/kaltura_moodle_plugin.git"
+            "type": "package",
+            "package": {
+                "name": "moodle/moodle",
+                "version": "master",
+                "source": {
+                    "type": "git",
+                    "url": "https://github.com/dunlop-lello/moodle.git",
+                    "upstream": {
+                        "url": "https://github.com/moodle/moodle.git"
+                    },
+                    "reference": "master"
+                }
+            }
         }
     ],
     "require": {
-        "moodle/moodle": "MOODLE_31_MDL-54834-dev",
-        "kaltura/moodle_plugin": "MOODLE_30_MDL-54834-dev"
+        "dunlop-lello/composer-moodle": "master-dev",
+        "moodle/moodle": "master-dev"
     },
     "scripts": {
-        "pre-install-cmd": "DunlopLello\\ComposedMoodle::preInstall",
-        "pre-update-cmd": "DunlopLello\\ComposedMoodle::preUpdate",
-        "post-install-cmd": "DunlopLello\\ComposedMoodle::postInstall",
-        "post-update-cmd": "DunlopLello\\ComposedMoodle::postUpdate"
+        "pre-install-cmd": "DunlopLello\\MoodleComposed\\Hooks::preInstall",
+        "pre-update-cmd": "DunlopLello\\MoodleComposed\\Hooks::preUpdate",
+        "post-install-cmd": "DunlopLello\\MoodleComposed\\Hooks::postInstall",
+        "post-update-cmd": "DunlopLello\\MoodleComposed\\Hooks::postUpdate",
+        "composify": "DunlopLello\\MoodleComposed\\Commands::composify"
     },
     "autoload": {
         "psr-4": {
-            "DunlopLello\\": "src/"
+            "DunlopLello\\MoodleComposed\\": "src/"
         }
+    },
+    "extra": {
+        "docroot": ["moodle/moodle"]
     }
 }

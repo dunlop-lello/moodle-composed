@@ -1,17 +1,24 @@
 <?php
 
-namespace DunlopLello;
+namespace DunlopLello\MoodleComposed;
 
 use Composer\Script\Event;
-use Composer\Installer\PackageEvent;
 
-class ComposedMoodle {
-    const DOCROOT=__DIR__."/../docroot";
+class Hooks {
+    const DOCROOT=__DIR__."/../vendor/moodle/moodle";
     const VENDORSDIR=__DIR__."/../vendor";
 
     protected static function isPluginDir($dir)
     {
         return file_exists("$dir/version.php");
+    }
+
+    protected static function plugin($dir)
+    {
+        $plugin = new stdClass();
+        include("$dir/version.php");
+        $parts = explode("_", $plugin->component, 2);
+        return array($parts[1] => $parts[0]);
     }
 
     protected static function scanPlugins($vendordir, $subdir = "")
@@ -52,7 +59,7 @@ class ComposedMoodle {
             {
                 continue;
             }
-            if ($dir == SELF::VENDORSDIR."/moodle/moodle")
+            if ($dir == SELF::DOCROOT)
             {
                 continue;
             }
@@ -117,22 +124,20 @@ class ComposedMoodle {
 
     public static function postInstall(Event $event)
     {
-        SELF::postUpdate($event);
+        $vendors = SELF::vendorPlugins();
+        foreach ($vendors as $vendordir => $plugins)
+        {
+            foreach ($plugins as $plugin => $vendorplugindir)
+            {
+                if (!is_link(SELF::DOCROOT.'/'.$plugin))
+                {
+                    symlink($vendorplugindir, SELF::DOCROOT.'/'.$plugin);
+                }
+            }
+        }
     }
 
     public static function postUpdate(Event $event)
     {
-        $vendors = SELF::vendorPlugins();
-        foreach ($vendors as $vendordir => $plugins)
-        {
-            symlink(SELF::DOCROOT.'/config.php', $vendordir.'/config.php');
-            foreach ($plugins as $plugin => $vendorplugindir)
-            {
-                if (symlink($vendorplugindir, SELF::DOCROOT.'/'.$plugin) === false)
-                {
-                    echo "symlink('$vendorplugindir', '".SELF::DOCROOT."/$plugin') failed.".PHP_EOL;
-                }
-            }
-        }
     }
 }

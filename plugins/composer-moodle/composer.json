@@ -1,0 +1,15 @@
+{
+    "name": "dunlop-lello/composer-moodle",
+    "type": "composer-plugin",
+    "require": {
+        "composer-plugin-api": "^1.0"
+    },
+    "extra": {
+        "class": "DunlopLello\\Composer\\Moodle\\Plugin"
+    },
+    "autoload": {
+        "psr-4": {
+            "DunlopLello\\Composer\\Moodle\\": "src/"
+        }
+    }
+}
