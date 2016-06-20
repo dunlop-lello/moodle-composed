@@ -1,36 +1,28 @@
 {
     "name": "dunloplello/composed-moodle",
     "type": "package",
-    "moodle": {
-        "docroot": "docroot",
-        "plugins": {
-            "moodle": "https://download.moodle.org/api/1.3/pluglist.php"
+    "config": {
+        "moodle": {
+            "docroot": "docroot",
+            "plugins": {
+                "moodle": "https://download.moodle.org/api/1.3/pluglist.php"
+            },
+            "source": {
+                "type": "git",
+                "url": "/srv/moodle31/docroot/.git"
+            }
         }
     },
     "repositories": [
         {
             "type": "path",
             "url": "./plugins/composer-moodle"
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "moodle/moodle",
-                "version": "master",
-                "source": {
-                    "type": "git",
-                    "url": "https://github.com/dunlop-lello/moodle.git",
-                    "upstream": {
-                        "url": "https://github.com/moodle/moodle.git"
-                    },
-                    "reference": "master"
-                }
-            }
         }
     ],
     "require": {
         "dunlop-lello/composer-moodle": "master-dev",
-        "moodle/moodle": "master-dev"
+        "moodle/moodle": "master-dev",
+        "moodle/moodle-theme_aardvark": "^3.0"
     },
     "scripts": {
         "pre-install-cmd": "DunlopLello\\MoodleComposed\\Hooks::preInstall",
@@ -43,8 +35,5 @@
         "psr-4": {
             "DunlopLello\\MoodleComposed\\": "src/"
         }
-    },
-    "extra": {
-        "docroot": ["moodle/moodle"]
     }
 }

@@ -11,53 +11,42 @@ use Composer\Script\Event;
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
     protected static $repository;
+    protected static $installer;
+    protected static $pluginInstaller;
 
     public function activate(Composer $composer, IOInterface $io)
     {
+        $config = $composer->getConfig()->get('moodle');
+        $config = array_replace_recursive(array(
+            "docroot" => "docroot",
+            "plugins" => array(
+                "moodle" => "https://download.moodle.org/api/1.3/pluglist.php"
+            ),
+            "source" => array(
+                "url" => "https://github.com/moodle/moodle.git",
+            ),
+            "options" => array(),
+        ), is_null($config)?array():$config);
         if (SELF::$repository == null)
         {
-            $config = $composer->getConfig()->get('moodle');
             SELF::$repository = new MoodlePluginsRepository($config, $composer, $io);
             $composer->getRepositoryManager()->addRepository(SELF::$repository);
+        }
+        if (SELF::$installer == null)
+        {
+            SELF::$installer = new MoodleInstaller($config, $composer, $io);
+            $composer->getInstallationManager()->addInstaller(SELF::$installer);
+        }
+        if (SELF::$pluginInstaller == null)
+        {
+            SELF::$pluginInstaller = new MoodlePluginsInstaller($config, $composer, $io);
+            $composer->getInstallationManager()->addInstaller(SELF::$pluginInstaller);
         }
     }
 
     public static function getSubscribedEvents()
     {
         return array(
-            'pre-update-cmd' => 'preUpdateCommand',
         );
-    }
-
-    public static function cacheFileName()
-    {
-        return "moodle-plugins.json";
-    }
-
-    public static function preUpdateCommand(Event $event)
-    {
-        $plugin = new Plugin();
-        $plugin->activate($event->getComposer(), $event->getIO());
-        $repositoryManager = $event->getComposer()->getRepositoryManager();
-        $moodlePlugins = new \stdClass();
-        foreach ($repositoryManager->getRepositories() as $repository)
-        {
-            if ($repository instanceof MoodlePluginsRepository)
-            {
-                $config = $repository->getRepoConfig();
-                foreach ($config['plugins'] as $prefix => $url)
-                {
-                    $event->getIO()->write("Reading plugin list '".$prefix."' from '".$url."'... ", false);
-                    $moodlePlugins->$prefix = json_decode(file_get_contents($url))->plugins;
-                    if ($moodlePlugins->$prefix == null)
-                    {
-                        $event->getIO()->write("failed");
-                        return;
-                    }
-                    $event->getIO()->write("done");
-                }
-            }
-        }
-        file_put_contents(SELF::cacheFileName(), json_encode($moodlePlugins));
     }
 }

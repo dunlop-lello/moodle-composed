@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8e33dcf01f979ac862db5bcc0a6d3326",
-    "content-hash": "920fdb08ae0a31d2425d24af922e9952",
+    "hash": "97780ee4c017ec96f31b690db0db0460",
+    "content-hash": "94f7417dab11648b4e4bbd686d4c4076",
     "packages": [
         {
             "name": "dunlop-lello/composer-moodle",
@@ -34,11 +34,22 @@
             "version": "master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dunlop-lello/moodle.git",
+                "url": "/srv/moodle31/docroot/.git",
                 "reference": "master"
             },
-            "type": "library",
-            "time": "2016-06-09 10:25:51"
+            "type": "moodle-core",
+            "time": "2016-06-05 17:46:26"
+        },
+        {
+            "name": "moodle/moodle-theme_aardvark",
+            "version": "3.0.2015110900",
+            "dist": {
+                "type": "zip",
+                "url": "https://moodle.org/plugins/download.php/9710/theme_aardvark_moodle30_2015110900.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "moodle-plugin"
         }
     ],
     "packages-dev": [],
