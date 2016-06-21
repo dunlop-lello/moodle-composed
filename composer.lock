@@ -4,17 +4,22 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "97780ee4c017ec96f31b690db0db0460",
-    "content-hash": "94f7417dab11648b4e4bbd686d4c4076",
+    "hash": "f0cf9618051ebddb8fc10819e8882372",
+    "content-hash": "a2dd1878fb8ed98ccda077f5d9d92f83",
     "packages": [
         {
             "name": "dunlop-lello/composer-moodle",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dunlop-lello/composer-moodle.git",
+                "reference": "4a44cdf19ef378699b7b6aaf8a3bacc6fdaf4b8e"
+            },
             "dist": {
-                "type": "path",
-                "url": "./plugins/composer-moodle",
-                "reference": "8c2357d3b80ee9c1808a4ae9426c7fee2655d685",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/dunlop-lello/composer-moodle/zipball/4a44cdf19ef378699b7b6aaf8a3bacc6fdaf4b8e",
+                "reference": "4a44cdf19ef378699b7b6aaf8a3bacc6fdaf4b8e",
+                "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0"
@@ -27,7 +32,12 @@
                 "psr-4": {
                     "DunlopLello\\Composer\\Moodle\\": "src/"
                 }
-            }
+            },
+            "support": {
+                "source": "https://github.com/dunlop-lello/composer-moodle/tree/master",
+                "issues": "https://github.com/dunlop-lello/composer-moodle/issues"
+            },
+            "time": "2016-06-21 05:52:01"
         },
         {
             "name": "moodle/moodle",

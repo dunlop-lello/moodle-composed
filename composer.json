@@ -15,8 +15,8 @@
     },
     "repositories": [
         {
-            "type": "path",
-            "url": "./plugins/composer-moodle"
+            "type": "vcs",
+            "url": "https://github.com/dunlop-lello/composer-moodle"
         }
     ],
     "require": {
